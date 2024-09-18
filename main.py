@@ -7,10 +7,13 @@ def main(page: ft.Page):
     page.theme_mode = 'dark'
     page.window.width = 350
     page.window.height = 700
+    ph = ft.PermissionHandler()
+    page.overlay.append(ph)
     page.add(MusicList())
 
 
 if __name__ == '__main__':
-    ft.app(main)
+    ft.app(main, upload_dir="uploads")
+
 
 
