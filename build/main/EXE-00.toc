@@ -72,7 +72,7 @@
  [],
  False,
  False,
- 1726680227,
+ 1726680738,
  [('run.exe',
    'D:\\PycharmProf\\APMusic\\.venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
    'EXECUTABLE')],

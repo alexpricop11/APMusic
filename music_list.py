@@ -7,13 +7,11 @@ class MusicList(ft.UserControl):
         super().__init__()
         self.music = []
         self.file_picker = ft.FilePicker(on_result=self.folder_selected)
-        self.permission_handler = ft.PermissionHandler(on_permission_result=self.permission_result)
         self.music_list = ft.ListView()
 
     def did_mount(self):
         # Adaugă FilePicker și PermissionHandler la overlay după ce pagina este inițializată
         self.page.overlay.append(self.file_picker)
-        self.page.overlay.append(self.permission_handler)
         self.page.update()
 
     def permission_result(self, e):
@@ -26,15 +24,11 @@ class MusicList(ft.UserControl):
     def app_bar(self):
         return ft.Container(
             ft.Row(controls=[
-                ft.IconButton(icon=ft.icons.FOLDER, on_click=self.check_permission),
+                ft.IconButton(icon=ft.icons.FOLDER, on_click=None),
                 ft.Text("APMusic", expand=True, text_align=ft.TextAlign.CENTER, size=24, color=ft.colors.BLUE),
                 ft.IconButton(icon=ft.icons.SEARCH)
             ])
         )
-
-    def check_permission(self, e):
-        # Verifică permisiunea de stocare și solicită permisiunea dacă nu este acordată
-        self.permission_handler.request_permission(ft.PermissionType.STORAGE)
 
     def folder_selected(self, e: ft.FilePickerResultEvent):
         if e.files:
