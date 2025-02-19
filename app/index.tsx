@@ -1,10 +1,10 @@
 import React from "react";
 import {registerRootComponent} from "expo";
-import NavBar from "@/components/NavBar";
+import PlaylistComponent from "@/components/playlist/PlaylistComponent";
 
 export default function App() {
     return (
-        <NavBar/>
+        <PlaylistComponent/>
     );
 }
 

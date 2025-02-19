@@ -62,10 +62,26 @@ export default function AudioList({audioFiles, onSelectSong, currentSong, onDele
                         <Text style={styles.modalTitle}>{removeExtension(selectedSong?.filename || "")}</Text>
                         <Pressable
                             style={[styles.button, styles.deleteButton]}
-                            onPress={() => {
+                            onPress={async () => {
                                 if (selectedSong) {
-                                    onDeleteSong(selectedSong);
+                                    try {
+                                        const {status} = await MediaLibrary.requestPermissionsAsync();
+                                        if (status !== "granted") {
+                                            alert("Permisiunea pentru accesul la fișiere este necesară pentru a șterge cântecele.");
+                                            return;
+                                        }
+                                        const deleted = await MediaLibrary.deleteAssetsAsync([selectedSong.id]);
+                                        if (deleted) {
+                                            onDeleteSong(selectedSong);
+                                            alert(`${removeExtension(selectedSong.filename)} a fost șters!`);
+                                        } else {
+                                            alert("Eroare: fișierul nu a fost șters.");
+                                        }
+                                    } catch (error) {
+                                        alert("Nu s-a putut șterge fișierul: " + error);
+                                    }
                                 }
+
                                 closeContextMenu();
                             }}
                         >

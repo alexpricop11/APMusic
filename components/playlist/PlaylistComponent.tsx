@@ -1,8 +1,8 @@
 import * as MediaLibrary from "expo-media-library";
 import {useEffect, useState} from "react";
 import {View, StyleSheet} from "react-native";
-import AudioList from "./playlist/AudioList";
-import AudioPlayer from "./playlist/AudioPlayer";
+import AudioList from "./AudioList";
+import AudioPlayer from "./AudioPlayer";
 
 export default function PlaylistComponent() {
     const [audioFiles, setAudioFiles] = useState<MediaLibrary.Asset[]>([]);
@@ -46,6 +46,7 @@ export default function PlaylistComponent() {
                 audioFiles={audioFiles}
                 onSelectSong={setCurrentSong}
                 currentSong={currentSong}
+                onDeleteSong={(song) => setAudioFiles(audioFiles.filter(item => item.id !== song.id))}
             />
             {currentSong && (
                 <AudioPlayer
